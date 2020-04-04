@@ -1,0 +1,201 @@
+body {
+	background-color: #000;
+	font-family: Lucida Console,Lucida Sans Typewriter,monaco,Bitstream Vera Sans Mono,monospace
+}
+.splash {
+	position: fixed;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	background: #FFF;
+	z-index: 1000;
+}
+
+.range_value {
+	color:#FFF;
+	font-size:2em;
+	font-weight:bold;
+}
+
+/* .iro__slider { */
+     /* display: none; */
+     /* visibility: hidden; */
+     /* pointer-events: none; */
+/* } */
+/* #RGB svg { */
+     /* height: 270px !important; */
+/* } */
+
+#colorPicker{
+    margin-left: auto;
+    margin-right: auto;
+    padding: 10px;
+	text-align:center;
+	background-color: #444;
+	width:320px;
+}
+
+#STATUScontents {
+	margin-left:5px;
+	color:#FFF;
+	font-size:0.9em;	
+}
+
+table.status{
+	text-align:left;
+}
+
+.block{
+	margin-top:10px;
+    margin-left: auto;
+    margin-right: auto;
+	text-align:center;
+	background-color: #444;
+	width:340px;
+	-moz-border-radius:3px;
+	-webkit-border-radius:3px;
+	border-radius:3px;
+}
+.block_header{
+	font-size: 1.5em;
+	padding: -10px;
+	background-color: #666;
+	-moz-border-radius:3px;
+	-webkit-border-radius:3px;
+	border-radius:3px;
+	
+}
+.block_footer{
+	font-size: 2em;
+	width:100%;
+	padding-top:10px;
+	padding-bottom:10px;
+}
+
+.block_apply {
+	//-moz-box-shadow:inset 0px -3px 7px 0px #29bbff;
+	//-webkit-box-shadow:inset 0px -3px 7px 0px #29bbff;
+	//box-shadow:inset 0px -3px 7px 0px #29bbff;
+	background-color:#2dabf9;
+	-moz-border-radius:3px;
+	-webkit-border-radius:3px;
+	border-radius:3px;
+	border:1px solid #0b0e07;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+	padding:9px 53px;
+	text-decoration:none;
+	text-shadow:1px 1px 2px #263666;
+}
+.block_apply:hover {
+	background-color:#0688fa;
+}
+.block_apply:active {
+	position:relative;
+	top:1px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+input[type=range].slider {
+  -webkit-appearance: none;
+  width: 90%;
+  margin: 14.7px 0;
+}
+input[type=range].slider:focus {
+  outline: none;
+}
+input[type=range].slider::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 12.6px;
+  cursor: pointer;
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+  background: #aaaaaa;
+  border-radius: 3px;
+  border: 0px solid #010101;
+}
+input[type=range].slider::-webkit-slider-thumb {
+  box-shadow: 0px 0px 5px #670000, 0px 0px 0px #810000;
+  border: 0px solid #f21e00;
+  height: 42px;
+  width: 11px;
+  border-radius: 3px;
+  background: rgba(255, 67, 95, 0.93);
+  cursor: pointer;
+  -webkit-appearance: none;
+  margin-top: -14.7px;
+}
+input[type=range].slider:focus::-webkit-slider-runnable-track {
+  background: #bcbcbc;
+}
+input[type=range].slider::-moz-range-track {
+  width: 100%;
+  height: 12.6px;
+  cursor: pointer;
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+  background: #aaaaaa;
+  border-radius: 3px;
+  border: 0px solid #010101;
+}
+input[type=range].slider::-moz-range-thumb {
+  box-shadow: 0px 0px 5px #670000, 0px 0px 0px #810000;
+  border: 0px solid #f21e00;
+  height: 42px;
+  width: 11px;
+  border-radius: 3px;
+  background: rgba(255, 67, 95, 0.93);
+  cursor: pointer;
+}
+input[type=range].slider::-ms-track {
+  width: 100%;
+  height: 12.6px;
+  cursor: pointer;
+  background: transparent;
+  border-color: transparent;
+  color: transparent;
+}
+input[type=range].slider::-ms-fill-lower {
+  background: #989898;
+  border: 0px solid #010101;
+  border-radius: 6px;
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+}
+input[type=range].slider::-ms-fill-upper {
+  background: #aaaaaa;
+  border: 0px solid #010101;
+  border-radius: 6px;
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+}
+input[type=range].slider::-ms-thumb {
+  box-shadow: 0px 0px 5px #670000, 0px 0px 0px #810000;
+  border: 0px solid #f21e00;
+  height: 42px;
+  width: 11px;
+  border-radius: 3px;
+  background: rgba(255, 67, 95, 0.93);
+  cursor: pointer;
+  height: 12.6px;
+}
+input[type=range].slider:focus::-ms-fill-lower {
+  background: #aaaaaa;
+}
+input[type=range].slider:focus::-ms-fill-upper {
+  background: #bcbcbc;
+}
+
+

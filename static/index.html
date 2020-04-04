@@ -1,0 +1,384 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+ <link rel="icon" type="image/png" href="lamp.png" />
+  <link rel="apple-touch-icon" href="lamp.png"/>
+  <meta charset="utf-8">
+
+  <title>Lamp Panel v2</title>
+  <meta name="description" content="Desktop lamp control panel">
+  <meta name="author" content="gogasan">
+  <meta name="viewport" content="width=340, initial-scale=1.2">
+  <link rel="stylesheet" href="styles.css">
+  <script src="jquery-3.3.1.min.js"></script>
+	<script src="iro.min.js"></script>
+</head>
+
+<body>
+  
+	<div class="block" id="status">
+		<div class="block_header" id="STATUSselector">STATUS</div>
+		<div class="details">
+		<div class="contents" id="STATUScontents">
+		<a href="#" class="block_apply" id="SWITCH_operational">SWITCH</a>
+			<table class="status">
+			<thead></thead>
+			<tbody>
+				<tr>
+					<td>Keepalive:</td>
+					<td id="STATUS_keepalive">sample seconds</td>
+				</tr>
+				<tr>
+					<td>Uptime:</td>
+					<td id="STATUS_uptime">sample seconds</td>
+				</tr>
+				<tr>
+					<td>Current RGB:</td>
+					<td id="STATUS_rgb">sample seconds</td>
+				</tr>
+				<tr>
+					<td>Current color temperature:</td>
+					<td id="STATUS_temperature">sample seconds</td>
+				</tr>
+				<tr>
+					<td>UDP mode:</td>
+					<td id="STATUS_udp">sample seconds</td>
+				</tr>
+				<tr>
+					<td>Brightness:</td>
+					<td id="STATUS_brightness">sample seconds</td>
+				</tr>
+				<tr>
+					<td>WIFI signal:</td>
+					<td id="STATUS_wifi">sample seconds</td>
+				</tr>
+				<tr>
+					<td>Operational:</td>
+					<td id="STATUS_operational">sample seconds</td>
+				</tr>
+				<tr>
+					<td>Modern udp:</td>
+					<td id="STATUS_udpProtocol">sample seconds</td>
+				</tr>
+				<tr>
+					<td>Revision:</td>
+					<td id="STATUS_revision">sample seconds</td>
+				</tr>
+			</tbody>
+			</table>
+		</div>
+		<div class="block_footer"> <!--
+			<a href="#" id="RGBselectorBtn" class="block_apply">APPLY</a> -->
+		</div>
+		</div>
+	</div>
+	
+	<div class="block" id="RGB">
+		<div class="block_header" id="RGBselector">RGB SELECTOR</div>
+		<div class="details">
+			<div class="contents wheel" id="colorPicker"><div id="CT.value" class="range_value" ></div></div>
+			
+			<div class="block_footer">
+				<a href="#" id="RGBselectorBtn" class="block_apply">APPLY</a>
+			</div>
+		</div>
+	</div>
+	<div class="block" id="BRIGHTNESS">
+		<div class="block_header" id="BRIGHTNESSselector">BRIGHTNESS SELECTOR</div>
+		<div class="details">
+		<div class="contents" id="">
+			<input min="0" max="255" type="range" class="slider"></input><br>
+			<div id="BRIGHTNESS.value" class="range_value" ></div>
+		</div>
+		<div class="block_footer">
+			<a href="#" id="BRIGHTNESSselectorBtn" class="block_apply">APPLY</a>
+		</div>
+		</div>
+	</div>
+	<div class="block" id="CT">
+		<div class="block_header" id="CTselector">CT SELECTOR</div>
+		<div class="details">
+		<div class="contents" id="">
+			<input min="500" max="6000" type="range" class="slider"></input><br>
+			<div id="CT.value" class="range_value" ></div>
+		</div>
+		<div class="block_footer">
+			<a href="#" id="CTselectorBtn" class="block_apply">APPLY</a>
+		</div>
+		</div>
+	</div>
+	<div class="block" id="SYSTEM">
+		<div class="block_header" id="SYSTEMselector">SYSTEM</div>
+		<div class="details">
+		<div class="contents" id="">
+			<br>
+			<a href="#" class="block_apply" id="SYSTEM_REBOOT">REBOOT</a><br><br>
+			<a href="/fwupdate" class="block_apply" id="SYSTEM_UPGRADE">FIRMWARE UPGRADE</a><br><br>
+			<a href="#" class="block_apply" id="SYSTEM_UDP">SWITCH UDP MODE</a><br><br>
+		</div>
+		<div class="block_footer">
+			
+		</div>
+		</div>
+	</div>
+	<div class="block" id="ADVANCED">
+		<div class="block_header" id="ADVANCEDselector">ADVANCED</div>
+		<div class="details">
+			<div class="contents" id="">
+				<br>
+				<form id="advanced_form" action="/prop" method="POST">
+					<label for="udpParseModeNew">Use modern UDP protocol</label>
+					<input id="udpParseModeNew" type="checkbox" name="udpParseModeNew"/>
+					<input id='udpParseModeNewHidden' type='hidden' value='no' name='udpParseModeNew'>
+					</br>
+					
+					
+					
+					
+					<input type="submit" class="block_apply" value="SET"/>
+				</form>
+			</div>
+			<div class="block_footer">
+				
+			</div>
+		</div>
+	</div>
+
+  <div class="splash"></div>
+  <script>
+		var colorWheel = new iro.ColorPicker("#colorPicker", {
+			color: '#FFF',
+			padding: 6,
+			borderWidth: 0,
+			borderColor: '#fff',
+			display: 'block',
+			anticlockwise: false,
+			width: 320,
+			height: 320,
+			sliderHeight: undefined,
+			sliderMargin: 24,
+			markerRadius: 8,
+			wheelLightness: undefined,
+			css: {
+				"#RGBselector111": {
+				  "background-color": "$color"
+				},
+				"#RGBselectorBtn": {
+				  "background-color": "$color",
+				  "moz-box-shadow": "inset 0px -3px 7px 0px $color",
+				  "webkit-box-shadow": "inset 0px -3px 7px 0px $color",
+				  "box-shadow": "inset 0px -3px 7px 0px $color"
+				}
+			  } // apply colors to any elements
+			  
+		});
+		//alert( $("a.block_apply").css('box-shadow').replace(/^.*(rgba?\([^)]+\)).*$/,'$1'));
+		function onRGB(color) {
+			$("#RGB > div.details > div.contents > div.range_value").html(color.hexString);
+			//alert(color);
+			$("#RGB > div.details > div.contents > div.range_value").css("color",color.hexString)
+		}
+		colorWheel.on("color:change", onRGB);
+		
+		let show_hide_speed = 500;
+		let allowAffect = true;
+		$("div.splash").hide();
+		
+		$('#advanced_form').submit(function() {
+			if($('#udpParseModeNew').checked) {
+				$('#udpParseModeNewHidden').disabled = true;
+			}
+		});
+		
+		function configure_menu(speed=0){			
+			$("div.details").hide(speed);
+			$("#status > div.details").show(speed);
+		}
+		configure_menu();
+		//TODO fix this ugly code
+		$("#STATUSselector").click(function(){
+			allowAffect=true;
+			$("div.details").not("#status > div.details").hide(show_hide_speed);
+			$("#status > div.details").show(show_hide_speed);}
+		);
+		$("#RGBselector").click(function(){
+			allowAffect=false;
+			$("div.details").not("#RGB > div.details").hide(show_hide_speed);
+			$("#RGB > div.details").show(show_hide_speed);}
+		);
+		$("#CTselector").click(function(){
+			allowAffect=false;
+			$("div.details").not("#CT > div.details").hide(show_hide_speed);
+			$("#CT > div.details").show(show_hide_speed);}
+		);
+		$("#SYSTEMselector").click(function(){
+			$("div.details").not("#SYSTEM > div.details").hide(show_hide_speed);
+			$("#SYSTEM > div.details").show(show_hide_speed);}
+		);
+		$("#ADVANCEDselector").click(function(){
+			$("div.details").not("#ADVANCED > div.details").hide(show_hide_speed);
+			$("#ADVANCED > div.details").show(show_hide_speed);}
+		);
+		$("#BRIGHTNESSselector").click(function(){
+			allowAffect=false;
+			$("div.details").not("#BRIGHTNESS > div.details").hide(show_hide_speed);
+			$("#BRIGHTNESS > div.details").show(show_hide_speed);}
+		);
+		$("#BRIGHTNESS > div.details > div.contents > input").on('input', function(){$("#BRIGHTNESS > div.details > div.contents > div.range_value").html(this.value);});
+		$("#CT > div.details > div.contents > input").on('input', function(){$("#CT > div.details > div.contents > div.range_value").html(this.value);});
+		function secondsToString(seconds)
+		{
+			var numyears = Math.floor(seconds / 31536000);
+			var numdays = Math.floor((seconds % 31536000) / 86400); 
+			var numhours = Math.floor(((seconds % 31536000) % 86400) / 3600);
+			var numminutes = Math.floor((((seconds % 31536000) % 86400) % 3600) / 60);
+			var numseconds = (((seconds % 31536000) % 86400) % 3600) % 60;
+			return (numyears?numyears + " years ":"") +  (numdays?numdays + " days ":"") + (numhours?numhours + " hours ":"") + (numminutes?numminutes + " minutes ":"") + numseconds + " seconds";
+
+		}
+		function RGB2Color(r,g,b)
+		{
+		  return '#' + this.byte2Hex(r) + this.byte2Hex(g) + this.byte2Hex(b);
+		}
+		function byte2Hex (n)
+		{
+		  var nybHexString = "0123456789ABCDEF";
+		  return String(nybHexString.substr((n >> 4) & 0x0F,1)) + nybHexString.substr(n & 0x0F,1);
+		}
+		
+		let keepalive_busy=false;
+		function keepalive (){
+			if(keepalive_busy)return;
+			keepalive_busy=true;
+			$.ajax({
+				url:"/status",
+				success:function(data){
+					uptime=data.uptime;
+					last_keep_alive = uptime;
+					let color = RGB2Color(
+						data.r,
+						data.g,
+						data.b);
+					if(allowAffect)
+					{
+						colorWheel.color.set(color);
+						$("#BRIGHTNESS > div.details > div.contents > div.range_value").html(data.brightness);
+						$("#BRIGHTNESS > div.details > div.contents > input").val(data.brightness);
+						$("#CT > div.details > div.contents > div.range_value").html(data.temperature);
+						$("#CT > div.details > div.contents > input").val(data.temperature);
+					}
+					$("#STATUS_rgb").html(color);
+					$("#STATUS_temperature").html(data.temperature);
+					$("#STATUS_operational").html(data.state?"true":"false");
+					$("#STATUS_brightness").html(data.brightness);
+					$("#STATUS_revision").html(data.version);
+					$("#STATUS_wifi").html(data.signal);
+					$("#STATUS_udp").html(data.udp?"enabled":"disabled");
+					$("#STATUS_udpProtocol").html(data.udpParseModeNew?"enabled":"disabled");
+					$("#STATUS_rgb").css("background-color",color);
+					$("#udpParseModeNew").prop('checked', data.udpParseModeNew);
+
+					
+					//$("body").css('background-color','#000');
+				},
+				error:function(){
+					//$("body").css('background-color','#500');
+				}
+			});
+			keepalive_busy=false;
+		}
+
+		let uptime=0;
+		let last_keep_alive = 0;
+		var hostname = location.hostname;
+		keepalive();
+		setInterval(function(){
+			uptime++;
+			$("#STATUS_uptime").html(secondsToString(uptime));
+			$("#STATUS_keepalive").html(secondsToString(last_keep_alive));
+			if((uptime-last_keep_alive)>10)
+			{
+				$("#STATUS_keepalive").css("background-color","#A00");
+			}
+			else
+			{
+				$("#STATUS_keepalive").css("background-color","inherit");
+			}
+		},1000);
+		//TODO and this		
+		$("#RGBselectorBtn").on('click',function(){
+			$.ajax({
+				url:"/setColor?R="+colorWheel.color.rgb.r+"&G="+colorWheel.color.rgb.g+"&B="+colorWheel.color.rgb.b+"",
+				success:function(){
+					keepalive();
+					configure_menu(show_hide_speed);},
+				error:function(){
+					$("body").css('background-color','#500');}
+			});
+		});
+		
+		$("#SYSTEM_REBOOT").on('click',function(){
+			$.ajax({
+				url:"/reboot",
+				success:function(){
+					keepalive();
+					configure_menu(show_hide_speed);},
+				error:function(){
+					$("body").css('background-color','#500');}
+			});
+		});
+		
+		$("#CTselectorBtn").on('click',function(){
+			let temperature = $("#CT > div.details > div.contents > input").val();
+			$.ajax({
+				url:"/setColorTemp?t="+temperature,
+				success:function(){
+					keepalive();
+					configure_menu(show_hide_speed);},
+				error:function(){
+					$("body").css('background-color','#500');}
+			});
+		});
+		
+		$("#BRIGHTNESSselectorBtn").on('click',function(){
+			let bri = $("#BRIGHTNESS > div.details > div.contents > input").val();
+			$.ajax({
+				url:"/setBrightness?bri="+bri,
+				success:function(){
+					keepalive();
+					configure_menu(show_hide_speed);},
+				error:function(){
+					$("body").css('background-color','#500');}
+			});
+		});
+		
+		$("#SYSTEM_UDP").on('click',function(){
+			$.ajax({
+				url:"/switchUdp",
+				success:function(){
+					keepalive();
+					configure_menu(show_hide_speed);},
+				error:function(){
+					$("body").css('background-color','#500');}
+			});
+		});
+		
+		$("#SWITCH_operational").on('click',function(){
+			$.ajax({
+				url:"/switch",
+				success:function(){
+					keepalive();
+					configure_menu(show_hide_speed);},
+				error:function(){
+					$("body").css('background-color','#500');}
+			});
+		});
+		
+		setInterval(keepalive,1000 * 10);
+		
+	</script>
+	
+</body>
+</html>
+
